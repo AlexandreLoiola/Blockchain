@@ -9,7 +9,8 @@
     "build": "tsc",
     "start": "node build/index.js",
     "dev": "ts-node-dev --ignore-watch node_modules src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage && start coverage/lcov-report/index.html"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.22.11",
