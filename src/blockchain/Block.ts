@@ -15,7 +15,7 @@ class Block implements IBlock {
   ) {}
 
   // Cria o Bloco Genesis
-  static createGenesisBlock(): IBlock {
+  static createGenesisBlock(): Block {
     return new this(
       genesisBlockData.index,
       genesisBlockData.timestamp,
@@ -29,7 +29,7 @@ class Block implements IBlock {
   // Tenta minerar o bloco. Isto é: Procura um "nonce" que satisfaça a dificuldade da Blochain;
   static mineBlock(
     blockchainDifficult: number,
-    previousBlock: IBlock,
+    previousBlock: Block,
     data: IData
   ) {
     try {
