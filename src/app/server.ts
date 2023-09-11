@@ -1,15 +1,21 @@
 import express from "express";
-import blockchainRouter from "./routes/blockchain.routes";
+import createBlockchainRouter from "./routes/blockchain.routes";
+import Blockchain from "../blockchain/Blockchain";
+import P2PServer from "./P2PServer";
+
+const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
 const app = express();
 app.use(express.json());
 
-app.use("/api/blockchain", blockchainRouter);
+const blockchain = new Blockchain();
+const p2pserver = new P2PServer(blockchain);
 
-const PORT = process.env.PORT || 3000;
+app.use("/api/blockchain", createBlockchainRouter(p2pserver, blockchain));
 
 export default function startServer() {
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+  app.listen(HTTP_PORT, () => {
+    console.log(`Servidor ligado na porta: ${HTTP_PORT}`);
   });
+  p2pserver.listen();
 }

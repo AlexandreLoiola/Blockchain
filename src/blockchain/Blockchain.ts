@@ -48,8 +48,8 @@ class Blockchain {
       console.log("A cadeia recebida não é válida");
       return false;
     }
-    console.log("Substituindo a blockchain pela nova cadeia...");
     this.chain = newChain;
+    console.log("Cadeia blockchain substituida");
     return true;
   }
 

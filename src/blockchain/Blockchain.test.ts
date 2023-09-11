@@ -57,7 +57,7 @@ describe("Classe Blockchain", () => {
     it("Deve verificar se o hash do bloco anterior é igual ao previousHash do sucessor", () => {
       const isValid = blockchain.isValidChain(notValidChain);
       expect(isValid).toBe(false);
-    })
+    });
   });
 
   describe("Método addBlock", () => {
