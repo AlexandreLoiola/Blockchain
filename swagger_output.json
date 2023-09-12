@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Api Blockchain",
+    "description": "Documentação da Api Blockchain gerada automaticamente por swagger-autogen"
+  },
+  "host": "localhost:3001",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/blockchain": {
+      "get": {
+        "tags": [
+          "Blockchain"
+        ],
+        "description": "Endpoint para obter a blockchain.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/blockchain/{index}/": {
+      "get": {
+        "tags": [
+          "Blockchain"
+        ],
+        "description": "Endpoint para obter um bloco específico.",
+        "parameters": [
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Índice do bloco."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/blockchain/addblock/": {
+      "post": {
+        "tags": [
+          "Blockchain"
+        ],
+        "description": "Endpoint para adicionar um novo bloco à blockchain.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/blockchain/details/": {
+      "get": {
+        "tags": [
+          "Blockchain"
+        ],
+        "description": "Endpoint para obter a dificuldade atual da blockchain.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "contact": {
+    "name": "Alexandre Loiola",
+    "url": "https://github.com/AlexandreLoiola",
+    "email": "alexandre.loiola.741@gmail.com"
+  }
+}
