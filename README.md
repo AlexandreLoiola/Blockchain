@@ -49,7 +49,9 @@ Antes de começar, você vai precisar ter instalado em sua máquina a seguinte f
 ## 📖 Documentação dos Endpoints
 A documentação completa da api do projeto está disponível através do Swagger.
 
-![Documentação Swagger](.\images\swagger-documentation.png)
+<div>
+    <img src=".\images\swagger-documentation.png">
+</div>
 
 Para visualizar a documentação do projeto e obter informações detalhadas sobre os endpoints, parâmetros, modelos de dados e demais recursos disponíveis na API, inicie o Backend do projeto e clique [aqui](http://localhost:3001/doc).
 
