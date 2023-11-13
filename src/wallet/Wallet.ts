@@ -1,29 +1,57 @@
 import { ec as EllipticCurve } from "elliptic";
-
-const ec = new EllipticCurve('secp256k1');
+import TransactionPool from "../mempool/TransactionPool";
+import Transaction from "../mempool/Transaction";
+import Asset from "../assets/Assets";
+const ec = new EllipticCurve("secp256k1");
 
 class Wallet {
+  private _keyPair: EllipticCurve.KeyPair;
+  private _publicKey: EllipticCurve.KeyPair;
+  private _assets: Asset[];
 
-    private _keyPair: EllipticCurve.KeyPair;
-    private _publicKey: EllipticCurve.KeyPair;
+  constructor(privateKey?: string, publicKey?: string) {
+    if (privateKey && publicKey) {
+      this._keyPair = ec.keyFromPrivate(privateKey);
+      this._publicKey = ec.keyFromPublic(publicKey, "hex");
+    } else {
+      this._keyPair = ec.genKeyPair();
+      this._publicKey = ec.keyFromPublic(this._keyPair.getPublic("hex"), "hex");
+    }
+    this._assets = [];
+  }
 
-    constructor() {
-        this._keyPair = ec.genKeyPair();
-        this._publicKey = ec.keyFromPublic(this.keyPair.getPublic('hex'), 'hex');
-    }
+  createTransaction(
+    receiverAddress: string,
+    asset: Asset,
+    transactionPool: TransactionPool
+  ) {
+    asset = Asset.create(asset);    
+    let transaction = Transaction.createTransaction(this, receiverAddress, asset);
+    transactionPool.addTransaction(transaction);
+    return transaction;
+  }
 
-    public get keyPair(): any {
-        return this._keyPair;
-    }
-    public set keyPair(value: any) {
-        this._keyPair = value;
-    }
-    public get publicKey(): any {
-        return this._publicKey;
-    }
-    public set publicKey(value: any) {
-        this._publicKey = value;
-    }
+  signTransaction(dataHash: string): string {
+    const sig = this._keyPair.sign(dataHash);
+    return sig.toDER("hex");
+  }
+
+  exportCredentials(): object {
+    return {
+      publicKey: this._publicKey.getPublic("hex"),
+      privateKey: this._keyPair.getPrivate("hex"),
+    };
+  }
+
+  public get publicKey(): string {
+    return this._keyPair.getPublic("hex");
+  }
+  public get assets(): Asset[] {
+    return this._assets;
+  }
+  public set assets(value: Asset[]) {
+    this._assets = value;
+  }
 }
 
 export default Wallet;
